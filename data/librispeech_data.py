@@ -6,6 +6,7 @@ import subprocess
 from utils import create_manifest
 from tqdm import tqdm
 import shutil
+import ipdb
 
 parser = argparse.ArgumentParser(description='Processes and downloads LibriSpeech dataset.')
 parser.add_argument("--target-dir", default='LibriSpeech_dataset/', type=str, help="Directory to store the dataset.")
@@ -42,11 +43,13 @@ def _process_file(wav_dir, txt_dir, base_filename, root_dir):
     full_recording_path = os.path.join(root_dir, base_filename)
     assert os.path.exists(full_recording_path) and os.path.exists(root_dir)
     wav_recording_path = os.path.join(wav_dir, base_filename.replace(".flac", ".wav"))
+    
 #     subprocess.call(["sox {}  -r {} -b 16 -c 1 {}".format(full_recording_path, str(args.sample_rate),
 #                                                           wav_recording_path)], shell=True)
     
     subprocess.call([f"sox {full_recording_path}  -r {str(args.sample_rate)} -b 16 -c 1 {wav_recording_path}"], shell=True)
     
+#     ipdb.set_trace()
     # process transcript
     txt_transcript_path = os.path.join(txt_dir, base_filename.replace(".flac", ".txt"))
     transcript_file = os.path.join(root_dir, "-".join(base_filename.split('-')[:-1]) + ".trans.txt")
@@ -89,8 +92,8 @@ def main():
                 continue
             filename = url.split("/")[-1]
             target_filename = os.path.join(split_dir, filename)
-            if not os.path.exists(target_filename):
-                wget.download(url, split_dir)
+#             if not os.path.exists(target_filename):
+#                 wget.download(url, split_dir)
             print("Unpacking {}...".format(filename))
             tar = tarfile.open(target_filename)
             tar.extractall(split_dir)

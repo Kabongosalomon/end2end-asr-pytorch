@@ -13,7 +13,7 @@ parser.add_argument('--test-manifest-list', nargs='+', type=str)
 parser.add_argument('--lang-list', nargs='+', type=str)
 
 parser.add_argument('--sample-rate', default=16000, type=int, help='Sample rate')
-parser.add_argument('--batch-size', default=20, type=int, help='Batch size for training')
+parser.add_argument('--batch-size', default=20, type=int, help='Batch size for training') # 20
 parser.add_argument('--num-workers', default=4, type=int, help='Number of workers used in data-loading')
 
 parser.add_argument('--labels-path', default='labels.json', help='Contains all characters for transcription')
@@ -23,7 +23,7 @@ parser.add_argument('--window-size', default=.02, type=float, help='Window size 
 parser.add_argument('--window-stride', default=.01, type=float, help='Window stride for spectrogram in seconds')
 parser.add_argument('--window', default='hamming', help='Window type for spectrogram generation')
 
-parser.add_argument('--epochs', default=1000, type=int, help='Number of training epochs')
+parser.add_argument('--epochs', default=100, type=int, help='Number of training epochs') # 1000
 parser.add_argument('--cuda', dest='cuda', action='store_true', help='Use cuda to train model')
 
 parser.add_argument('--device-ids', default=None, nargs='+', type=int,
